@@ -41,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     'rest_framework',  # <-- OJO: esto debe existir
-    'api',             # tu app
     "django_extensions",
-    "categories",
     "recibos"
 ]
 
