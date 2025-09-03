@@ -23,15 +23,9 @@ def lista_recibos(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def crear_recibo(request):
-    data = request.data.copy()
-
-    # Usar el usuario del CSV si viene, si no, usar el logueado
-    if 'usuario' not in data:
-        data['usuario'] = request.user.id
-
-    serializer = ReciboSerializer(data=data)
+    serializer = ReciboSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(usuario=request.user)  # <--- Aquí se asegura que sea un objeto User
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
